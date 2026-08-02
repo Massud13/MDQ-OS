@@ -1,4 +1,4 @@
-// Own OS called MDQ - by MDQDev
+//OS in C++
 
 #include <iostream>
 #include <thread>
@@ -6,339 +6,256 @@
 
 std::string user = "\0";
 
-void Clear();
-void Asking(void self());
-void Calculator();
-void Textbook();
-void Terminal();
-void OS();
+void Ask(void func());
+void GameAsk(void func());
 void ShowTime();
 void ShowOS();
 void Timer();
-void Games();
-void Guessing();
+void Calculator();
+void Terminal();
+void Textbook();
+void GameSection();
+void NumberGuessing();
 void RPS();
 
-int main()
-{
-    Clear();
-    std::cout << "\033[0mWelcome to MDQ!\n";
-    std::cout << "-------------------------\n";
-    std::cout << "Exit (exit)\n";
-    std::cout << "Calculator (calc)\n";
-    std::cout << "Textbook (book)\n";
-    std::cout << "Terminal (terminal)\n";
-    std::cout << "OS Terminal (os)\n";
-    std::cout << "Show Time (show-time)\n";
-    std::cout << "Show OS (show-os)\n";
-    std::cout << "Timer (timer)\n";
-    std::cout << "Games Section (games)\n";
-    std::cout << "-------------------------\n";
-    std::cout << "Option: ";
-    std::cin >> user;
-    if (user == "exit")
-        exit(0);
-    else if (user == "calc")
-        Calculator();
-    else if (user == "book")
-        Textbook();
-    else if (user == "book")
-        Terminal();
-    else if (user == "terminal")
-        Terminal();
-    else if (user == "os")
-        OS();
-    else if (user == "show-time")
-        ShowTime();
-    else if (user == "show-os")
-        ShowOS();
-    else if (user == "timer")
-        Timer();
-    else if (user == "games")
-        Games();
-    else
-        main();
-    return 0;
+int main(){
+std::cout << "\x1B[0m\x1B[2J\x1B[3J\x1B[H";
+std::cout << "Welcome to this OS!\n";
+std::cout << "-------------------------\n";
+std::cout << "Exit(exit)\n";
+std::cout << "Show Time(time)\n";
+std::cout << "Show OS(os)\n";
+std::cout << "Timer(timer)\n";
+std::cout << "Calculator(calc)\n";
+std::cout << "Terminal(terminal)\n";
+std::cout << "Textbook(textbook)\n";
+std::cout << "Game Section(games)\n";
+std::cout << "-------------------------\n\n";
+std::cout << "-------------------------\n";
+std::cout << "\x1B[2AOption: ";
+std::cin >> user;
+if(user == "exit") exit(0);
+else if(user == "time") ShowTime();
+else if(user == "os") ShowOS();
+else if(user == "timer")Timer();
+else if(user == "calc")Calculator();
+else if(user == "terminal")Terminal();
+else if(user == "textbook")Textbook();
+else if(user == "games")GameSection();
+else main();
+return 0;
 }
 
-void Clear()
-{
+void Ask(void func()){
+std::cout << "Again (again)\n";
+std::cout << "Back (back)\n";
+std::cout << "-------------------------\n\n";
+std::cout << "-------------------------\n";
+std::cout << "\x1B[2AOption: ";
+std::cin >> user;
+if(user == "again") func();
+else main();
+}
+
+void GameAsk(void func()){
+std::cout << "Again (again)\n";
+std::cout << "Back (back)\n";
+std::cout << "-------------------------\n\n";
+std::cout << "-------------------------\n";
+std::cout << "\x1B[2AOption: ";
+std::cin >> user;
+if(user == "again") func();
+else GameSection();
+}
+
+void ShowTime(){
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+time_t t;
+time(&t);
+std::cout << "Time\n";
+std::cout << "-------------------------\n";
+std::cout << ctime(&t);
+std::cout << "-------------------------\n";
+Ask(ShowTime);
+}
+
+void ShowOS(){
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+std::cout << "OS\n";
+std::cout << "-------------------------\n";
+std::cout << "Your OS is ";
 #ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
-}
-
-void Asking(void self())
-{
-    std::cout << "Again (again)\n";
-    std::cout << "Back (back)\n";
-    std::cout << "-------------------------\n";
-    std::cout << "Option: ";
-    std::cin >> user;
-    if (user == "again")
-        self();
-    else
-        main();
-}
-
-void Calculator()
-{
-    Clear();
-    char op = '\0';
-    bool isvalid = 1;
-    int a = 0, b = 0, c = 0;
-    std::cout << "Calculator\n";
-    std::cout << "-------------------------\n\n";
-    std::cout << "-------------------------\n\033[2A";
-    std::cout << "Number One: ";
-    std::cin >> a;
-    Clear();
-    std::cout << "-------------------------\n\n";
-    std::cout << "-------------------------\n\033[2A";
-    std::cout << "Enter +, -, * or /: ";
-    std::cin >> op;
-    Clear();
-    std::cout << "-------------------------\n\n";
-    std::cout << "-------------------------\n\033[2A";
-    std::cout << "Number Two: ";
-    std::cin >> b;
-    Clear();
-    switch (op)
-    {
-    case '+':
-        c = a + b;
-        break;
-    case '-':
-        c = a - b;
-        break;
-    case '*':
-        c = a * b;
-        break;
-    case '/':
-        c = a / b;
-        break;
-
-    default:
-        isvalid = 0;
-        break;
-    }
-    std::cout << "-------------------------\n";
-    if (isvalid)
-        std::cout << a << " " << op << " " << b << " = " << c << '\n';
-    else
-        std::cout << "\033[33mInvalid Operator!\033[0m\n";
-    std::cout << "-------------------------\n\n";
-    Asking(Calculator);
-}
-
-void Textbook()
-{
-    Clear();
-    std::cout << "Textbook\n";
-    std::cout << "-------------------------\n";
-    while (true)
-    {
-        std::cin >> user;
-        if (user == "exit")
-            break;
-        else if (user == "clear")
-            Clear();
-    }
-    main();
-}
-
-void Terminal()
-{
-    Clear();
-    std::cout << "Terminal\n";
-    std::cout << "-------------------------\n";
-    while (true)
-    {
-        std::cout << "Command: ";
-        std::cin >> user;
-        if (user == "exit")
-            break;
-        else if (user == "clear")
-            Clear();
-        else if (user == "white")
-            std::cout << "\033[0m";
-        else if (user == "black")
-            std::cout << "\033[30m";
-        else if (user == "red")
-            std::cout << "\033[31m";
-        else if (user == "green")
-            std::cout << "\033[32m";
-        else if (user == "yellow")
-            std::cout << "\033[33m";
-        else if (user == "blue")
-            std::cout << "\033[34m";
-        else if (user == "magenta")
-            std::cout << "\033[35m";
-        else if (user == "cyan")
-            std::cout << "\033[36m";
-        else
-            std::cout << "\n\033[33mThe command '" << user << "' was not found.\033[0m\n\n";
-    }
-    main();
-}
-
-void OS()
-{
-    Clear();
-    std::cout << "This is the Terminal of your OS.\n";
-    std::cout << "-------------------------\n";
-    while (true)
-    {
-        std::cout << "Command: ";
-        std::cin >> user;
-        if (user == "exit")
-            break;
-        else
-            system(user.c_str());
-    }
-    main();
-}
-
-void ShowTime()
-{
-    Clear();
-    time_t timestamp;
-    time(&timestamp);
-    std::cout << "Time\n";
-    std::cout << "-------------------------\n";
-    std::cout << ctime(&timestamp);
-    std::cout << "-------------------------\n";
-    Asking(ShowTime);
-}
-
-void ShowOS()
-{
-    Clear();
-    std::cout << "Your OS is: ";
-#ifdef _WIN32
-    std::cout << "Windows.\n";
+std::cout << "Windows";
 #elif __linux__
-    std::cout << "Linux.\n";
+std::cout << "Linux";
 #elif __APPLE__
-    std::cout << "MacOS.\n";
+std::cout << "MacOS";
 #else
-    std::cout << "Unknown OS.\n"
+std::cout << "Unknown";
 #endif
-    std::cout << "-------------------------\n\n";
-    Asking(ShowOS);
+std::cout << ".\n";
+std::cout << "-------------------------\n";
+Ask(ShowOS);
 }
 
-void Timer()
-{
-    Clear();
-    int sec = 0;
-    std::cout << "Timer\n";
-    std::cout << "-------------------------\n\n";
-    std::cout << "-------------------------\n";
-    std::cout << "\033[2AHow long: ";
-    std::cin >> sec;
-    Clear();
-    for (int i = 0; i <= sec; i++)
-    {
-        std::cout << "\rSeconds: " << i;
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
-    Clear();
-    Asking(Timer);
+void Timer(){
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+int sec = 0;
+std::cout << "Timer\n";
+std::cout << "-------------------------\n\n";
+std::cout << "-------------------------\n";
+std::cout << "\x1B[2AHow many seconds: ";
+std::cin >> sec;
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+for(int i = 1;i <= sec;i++){
+std::cout << "Seconds: " << i << std::flush;
+std::this_thread::sleep_for(std::chrono::seconds(1));
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+}
+std::cout << "Alert\n";
+std::cout << "-------------------------\n";
+Ask(Timer);
 }
 
-void Games()
-{
-    Clear();
-    std::cout << "Game Section\n";
-    std::cout << "-------------------------\n";
-    std::cout << "Exit (exit)\n";
-    std::cout << "Number Guessing (guessing)\n";
-    std::cout << "Rock Paper Scissors (rps)\n";
-    std::cout << "-------------------------\n";
-    std::cout << "Option: ";
-    std::cin >> user;
-    if (user == "exit")
-        main();
-    else if (user == "guessing")
-        Guessing();
-    else if (user == "rps")
-        RPS();
-    else
-        Games();
+void Calculator(){
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+float a = 0.f, b = 0.f, c = 0.f;
+bool isvalid = 1;
+char op = '\0';
+std::cout << "Calculator\n";
+std::cout << "-------------------------\n\n";
+std::cout << "-------------------------\n";
+std::cout << "\x1B[2ANumber One: ";
+std::cin >> a;
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+std::cout << "Calculator\n";
+std::cout << "-------------------------\n\n";
+std::cout << "-------------------------\n";
+std::cout << "\x1B[2AEnter +, -, *, /: ";
+std::cin >> op;
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+std::cout << "Calculator\n";
+std::cout << "-------------------------\n\n";
+std::cout << "-------------------------\n";
+std::cout << "\x1B[2ANumber Two: ";
+std::cin >> b;
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+switch(op){
+case '+': c = a+b;break;
+case '-': c = a-b;break;
+case '*': c = a*b;break;
+case '/': c = a/b;break;
+default: isvalid = 0;break;
+}
+std::cout << "Result\n";
+std::cout << "-------------------------\n";
+if(isvalid)std::cout << a << ' ' << op << ' ' << b << " = " << c << '\n';
+else std::cout << "\x1B[33mInvalid Operator!\n\x1B[0m";
+std::cout << "-------------------------\n";
+Ask(Calculator);
 }
 
-void Guessing()
-{
-    Clear();
-    srand(time(0));
-    int num = rand() % 100 + 1;
-    int guess = 0;
-    int tries = 0;
-    std::cout << "Number Guessing\n";
-    std::cout << "Guess a number between 1 - 100\n";
-    std::cout << "-------------------------\n";
-    while (true)
-    {
-        tries++;
-        std::cout << "Your Guess: ";
-        std::cin >> guess;
-        if (guess == num)
-            break;
-        else if (guess < num)
-            std::cout << "\n\033[31mToo Low!\033[0m\n\n";
-        else if (guess > num)
-            std::cout << "\n\033[31mToo High!\033[0m\n\n";
-    }
-    std::cout << "\033[32m\nCorrect! You guessed the number " << num << " in " << tries << " tries.\033[0m\n\n";
-
-    std::cout << "Again (again)\n";
-    std::cout << "Back (back)\n\n";
-    std::cout << "Option: ";
-    std::cin >> user;
-    if (user == "again")
-        Guessing();
-    else
-        Games();
+void Terminal(){
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+std::cout << "Terminal\n";
+std::cout << "-------------------------\n";
+while(true){
+std::cout << "Command: ";
+std::cin >> user;
+if(user == "exit")break;
+else if(user == "clear")std::cout << "\x1B[2J\x1B[3J\x1B[H";
+else if(user == "white")std::cout << "\x1B[0m";
+else if(user == "black")std::cout << "\x1B[30m";
+else if(user == "red")std::cout << "\x1B[31m";
+else if(user == "green")std::cout << "\x1B[32m";
+else if(user == "yellow")std::cout << "\x1B[33m";
+else if(user == "blue")std::cout << "\x1B[34m";
+else if(user == "magenta")std::cout << "\x1B[35m";
+else if(user == "cyan")std::cout << "\x1B[36m";
+else std::cout << "\n\x1B[33mThe command '" << user << "' was not found.\n\n\x1B[0m";
+}
+main();
 }
 
-void RPS()
-{
-    Clear();
-    srand(time(0));
-    char player = '\0';
-    int ai = 0;
-    std::cout << "Rock-Paper-Scissors\nRock(r), Paper(p), Scissors(s), Exit(e)\n";
-    std::cout << "-------------------------\n";
-    while (true)
-    {
-        ai = rand() % 3;
-        std::cout << "Your Try: ";
-        std::cin >> player;
-        if (player == 'e')
-            break;
-        else if (player == 'r' && ai == 0)
-            std::cout << "\n\033[33mI have Rock too. Tie!\033[0m\n\n";
-        else if (player == 'p' && ai == 1)
-            std::cout << "\n\033[33mI have Paper too. Tie!\033[0m\n\n";
-        else if (player == 's' && ai == 2)
-            std::cout << "\n\033[33mI have Scissors too. Tie!\033[0m\n\n";
-        else if (player == 'r' && ai == 1)
-            std::cout << "\n\033[31mI have Paper. You Lost!\033[0m\n\n";
-        else if (player == 'p' && ai == 2)
-            std::cout << "\n\033[31mI have Scissors. You Lost!\033[0m\n\n";
-        else if (player == 's' && ai == 0)
-            std::cout << "\n\033[31mI have Rock. You Lost!\033[0m\n\n";
-        else if (player == 'r' && ai == 2)
-            std::cout << "\n\033[32mI have Scissors. You Won!\033[0m\n\n";
-        else if (player == 'p' && ai == 0)
-            std::cout << "\n\033[32mI have Rock. You Won!\033[0m\n\n";
-        else if (player == 's' && ai == 1)
-            std::cout << "\n\033[32mI have Paper. You Won!\033[0m\n\n";
-        else
-            std::cout << "\n\033[33mInvalid Try!\033[0m\n\n";
-    }
-    Games();
+void Textbook(){
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+std::cout << "Textbook\n";
+std::cout << "-------------------------\n";
+while(true){
+std::cin >> user;
+if(user == "exit")break;
+else if(user == "clear")std::cout << "\x1B[2J\x1B[3J\x1B[H";
+}
+main();
+}
+
+void GameSection(){
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+std::cout << "Game Section\n";
+std::cout << "-------------------------\n";
+std::cout << "Exit(exit)\n";
+std::cout << "Number Guessing(guessing)\n";
+std::cout << "Rock Paper Scissors(rps)\n";
+std::cout << "-------------------------\n\n";
+std::cout << "-------------------------\n";
+std::cout << "\x1B[2AOption: ";
+std::cin >> user;
+if(user == "exit")main();
+else if(user == "guessing")NumberGuessing();
+else if(user == "rps")RPS();
+else GameSection();
+}
+
+void NumberGuessing(){
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+srand(time(0));
+int guess = 0, tries = 0, num = rand()%100+1;
+std::cout << "Number Guessing (1 - 100)\n";
+std::cout << "Enter '0' to exit.\n";
+std::cout << "-------------------------\n";
+while(true){
+tries++;
+std::cout << "Your Guess: ";
+std::cin >> guess;
+if(guess == num)break;
+else if(guess < num && guess != 0)std::cout << "\n\x1B[31mToo low!\x1B[0m\n\n";
+else if(guess > num && guess != 0)std::cout << "\n\x1B[31mToo high!\x1B[0m\n\n";
+else if(guess == 0)GameSection();
+}
+std::cout << "\n\x1B[32mCorrect! You guessed " << num << " in " << tries << " tries.\n\x1B[0m";
+std::cout << "-------------------------\n";
+GameAsk(NumberGuessing);
+}
+
+void RPS(){
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+srand(time(0));
+int ai = 0;
+char pl = '\0';
+std::cout << "Rock Paper Scissors!\n";
+std::cout << "Rock - r, Paper - p, Scissors - s (Exit - e)\n";
+std::cout << "-------------------------\n";
+while(true){
+ai = rand()%3;
+std::cout << "Your Try: ";
+std::cin >> pl;
+if(pl == 'e')break;
+//Tie
+else if(pl == 'r' && ai == 0)std::cout << "\n\x1B[33mI have Rock too. Tie!\x1B[0m\n\n";
+else if(pl == 'p' && ai == 1)std::cout << "\n\x1B[33mI have Paper too. Tie!\x1B[0m\n\n";
+else if(pl == 's' && ai == 2)std::cout << "\n\x1B[33mI have Scissors too. Tie!\x1B[0m\n\n";
+//Won
+else if(pl == 'r' && ai == 2)std::cout << "\n\x1B[32mI have Scissors. You Won!\x1B[0m\n\n";
+else if(pl == 'p' && ai == 0)std::cout << "\n\x1B[32mI have Rock. You Won!\x1B[0m\n\n";
+else if(pl == 's' && ai == 1)std::cout << "\n\x1B[32mI have Paper. You Won!\x1B[0m\n\n";
+//Lose
+else if(pl == 'r' && ai == 1)std::cout << "\n\x1B[31mI have Paper. You Lost!\x1B[0m\n\n";
+else if(pl == 'p' && ai == 2)std::cout << "\n\x1B[31mI have Scissors. You Lost!\x1B[0m\n\n";
+else if(pl == 's' && ai == 0)std::cout << "\n\x1B[31mI have Rock. You Lost!\x1B[0m\n\n";
+/////
+else std::cout << "\n\x1B[33mInvalid Try!\x1B[0m\n\n";
+}
+std::cout << "\x1B[2J\x1B[3J\x1B[H";
+std::cout << "-------------------------\n";
+GameAsk(RPS);
 }
